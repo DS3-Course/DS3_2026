@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/DS3 Logo_Stacked.png" alt="DS3 Logo" width="400"/>
+  <img src="assets/DS3 Logo_Stacked.png" alt="DS3 Logo" width="200"/>
 </p>
 
 # Course Materials for Data Science for Developing Scholars in Down Syndrome Research (DS3) 2026  
@@ -11,8 +11,8 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 # Preparatory Series
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
-[Slides](https://github.com/DS3-2025/slides/blob/main/Intro_R_RStudio_DS3_2025_Galbraith.pdf)  
-GitHub repository: [installing_updating_R-RStudio](https://github.com/DS3-2025/installing_updating_R-RStudio)
+[Slides]()  
+[installing_updating_R-RStudio](https://github.com/DS3-Course/DS3_2026/tree/main/installing_updating_R%20RStudio)
 
 Alternatives to running locally:  
 [Posit Cloud](https://posit.cloud/)  
@@ -21,18 +21,18 @@ Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud
 
 
 ## Introduction to the [Tidyverse](https://tidyverse.tidyverse.org/)  
-[Slides](https://github.com/DS3-2025/slides/blob/main/Intro_Tidyverse_DS3_2025_Galbraith.pdf)  
-GitHub repository: [Rproject_template](https://github.com/DS3-2025/Rproject_template)  
-GitHub repository: [tidy_data_exercise](https://github.com/DS3-2025/tidy_data_exercise)  
+[Slides]()  
+[Rproject_template](https://github.com/DS3-Course/DS3_2026/tree/main/Rproject_template)  
+[tidy_data_exercise](https://github.com/DS3-Course/DS3_2026/tree/main/tidy_data_exercise)  
 
-
+<!-- 
 # Morning sessions: Short Read Sequencing Workshop
 Website: https://biodatasci.colorado.edu/shortread/  
 GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)
 
 
 # Afternoon sessions
-Github (this site): [DS3-2025](https://github.com/DS3-2025)
+Github (this repository): [DS3_2026](https://github.com/DS3-Course/DS3_2026)
 
 ## Day 1: The Human Trisome Project 
 Instructor: Matthew Galbraith  
@@ -74,13 +74,11 @@ GitHub repository: [HTP_single_cell_dataviz_mass_cytometry](https://github.com/D
 ## Day 7: Advanced Data Visualization and Analysis in R
 Instructor: Jim Costello  
 Applications of simple machine learning methods to predict outcomes leveraging HTP datasets.    
-<!-- Slides: Add links to slides for each day? -->
 GitHub repository: [Visualize_Cluster_HTP](https://github.com/DS3-2025/Visualize_Cluster_HTP)  
 
 ## Day 8: Supervised Machine Learning with HTP examples
 Instructor: Jim Costello   
 Applications of simple machine learning methods to predict outcomes leveraging HTP datasets.  
-<!-- Slides: Add links to slides for each day? -->
 GitHub repository: [PredictiveModels](https://github.com/DS3-2025/PredictiveModels)
 
 ## Day 9: Analysis of INCLUDE data with R using Cavatica
@@ -89,6 +87,8 @@ Instructor: Matthew Galbraith and Velsera
 A guide to locating data in the INCLUDE Data Hub and transfering to the Cavatica platform for analysis.  
 Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program)  
 GitHub repository: [HTP_linear_regression_Cavatica](https://github.com/DS3-2025/HTP_linear_regression_Cavatica)
+ -->
+
 
 
 
