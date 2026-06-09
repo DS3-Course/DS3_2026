@@ -12,7 +12,7 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
 [Slides]()  
-[installing_updating_R-RStudio](https://github.com/DS3-Course/DS3_2026/tree/main/installing_updating_R%20RStudio)
+[README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
 
 Alternatives to running locally:  
 [Posit Cloud](https://posit.cloud/)  
