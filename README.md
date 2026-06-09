@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/DS3 Logo_Stacked.png" alt="DS3 Logo" width="400"/>
+</p>
+
 # Course Materials for Data Science for Developing Scholars in Down Syndrome Research (DS3) 2026  
 Main course website: https://includeds3.org/
 <!-- Course Description: -->
