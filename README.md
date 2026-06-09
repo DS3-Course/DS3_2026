@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/DS3 Logo_Stacked.png" alt="DS3 Logo" width="250"/>
+  <img src="assets/DS3 Logo_Horizontal.png" alt="DS3 Logo" width="600"/>
 </p>
 
 # Course Materials for Data Science for Developing Scholars in Down Syndrome Research (DS3) 2026  
