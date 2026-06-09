@@ -12,7 +12,7 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
 [Slides]()  
-Installing R, RStudio, and Git: [README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
+Installing and updating R, RStudio, and Git: [README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
 
 Alternatives to running locally:  
 [Posit Cloud](https://posit.cloud/)  
@@ -22,8 +22,8 @@ Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud
 
 ## Introduction to the [Tidyverse](https://tidyverse.tidyverse.org/)  
 [Slides]()  
-[Rproject_template](https://github.com/DS3-Course/DS3_2026/tree/main/Rproject_template)  
-[tidy_data_exercise](https://github.com/DS3-Course/DS3_2026/tree/main/tidy_data_exercise)  
+Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
+Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
 
 <!-- 
 # Morning sessions: Short Read Sequencing Workshop
