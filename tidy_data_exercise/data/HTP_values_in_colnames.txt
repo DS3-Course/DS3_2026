@@ -1,0 +1,5 @@
+Karyotype	Sex	18to50	over50	under18
+Control	Female	144	54	35
+Control	Male	85	21	30
+T21	Female	224	11	87
+T21	Male	187	10	122

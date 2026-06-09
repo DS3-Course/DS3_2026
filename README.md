@@ -8,6 +8,8 @@ Main course website: https://includeds3.org/
 The Data Science for Developing Scholars in Down Syndrome Research (DS3) course is a training program working to increase data sciences expertise across the INCLUDE Project and the Down syndrome research community.  
 <!-- Any other info/links here? -->
 
+# Preparatory Series
+
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
 [Slides](https://github.com/DS3-2025/slides/blob/main/Intro_R_RStudio_DS3_2025_Galbraith.pdf)  
 GitHub repository: [installing_updating_R-RStudio](https://github.com/DS3-2025/installing_updating_R-RStudio)
