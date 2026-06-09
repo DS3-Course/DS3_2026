@@ -3,7 +3,7 @@
 ## 1. Installing `R`
 
 a. For Mac OS users, you can download `R` from CRAN [here](https://cran.r-project.org/bin/macosx/).  
-   - For R ≥4.1.0 there is a separate build for ARM-based Macs (also known as ‘M1/M2/M3/M4’ and ‘Apple Silicon’).  
+   - NOTE: There are separate builds for Apple silicon arm64-based Macs (M1,M2,M3,M4,etc) vs. older Intel-based Macs.  
    - _For packages that require compilation:_ Xcode Command Line Tools needs to be installed - to install execute the following command in Terminal: `xcode-select --install` or see [here](https://cran.r-project.org/bin/macosx/tools/) and [here](https://mac.install.guide/commandlinetools). If having gfortran issues on Apple Silicon computers, check out the [macrtools R package](https://github.com/coatless-mac/macrtools/), or use the gfortran installer linked at the top of [this page](https://cran.r-project.org/bin/macosx/tools/).   
 
 b. For Windows users, you can download `R` [here](https://cran.r-project.org/bin/windows/base/).  
