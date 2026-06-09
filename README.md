@@ -1,4 +1,4 @@
-# Course Materials for Data Science for Developing Scholars in Down Syndrome Research (DS3) 2025  
+# Course Materials for Data Science for Developing Scholars in Down Syndrome Research (DS3) 2026  
 Main course website: https://includeds3.org/
 <!-- Course Description: -->
 The Data Science for Developing Scholars in Down Syndrome Research (DS3) course is a training program working to increase data sciences expertise across the INCLUDE Project and the Down syndrome research community.  
