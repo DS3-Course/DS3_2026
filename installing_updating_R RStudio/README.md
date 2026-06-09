@@ -67,7 +67,7 @@ b. [Posit Cloud](https://posit.cloud/plans/free) (free account required)
 
 
 ## Additional requirements
-To allow cloning of project repositories from within RStudio, you will need to have Git and (optionally) Git LFS installed on your system. 
+To allow cloning of project repositories, you will need to have Git and (optionally) Git LFS installed on your system. 
 
 ### Git
 For details, see [here](https://git-scm.com/downloads)  
@@ -86,7 +86,7 @@ c. Linux:
    - Fedora/Rocky: `dnf install git `
 
 ### Git LFS (large file storage)  
-OPTIONAL - only required during DS3 course for mass_cytometry_dataviz exercise.  
+OPTIONAL - only required for cloning large files.  
 For details, see [here](https://git-lfs.com/)  
 
 a. Mac OS:  
