@@ -11,7 +11,7 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 # Preparatory Series
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
-[Slides]()  
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Prep3_Intro_R_RStudio_DS3_2026_Galbraith.pdf)  
 Installing and updating R, RStudio, and Git: [README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
 
 Alternatives to running locally:  
