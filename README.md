@@ -11,7 +11,6 @@ Main course website: https://includeds3.org/
 Morning sessions: Short Read Sequencing Workshop  
 	- Website: https://biodatasci.colorado.edu/shortread/  
 	- GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)  
-
 ---
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
@@ -22,7 +21,7 @@ Morning sessions: Short Read Sequencing Workshop
 - [Posit Cloud](https://posit.cloud/)  
 - [Cavatica](https://www.cavatica.org/)  
 - Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program) to use on Cavatica.
-
+---
 
 ## Git workflow for accessing and updating course materials in this repository
 
@@ -43,13 +42,12 @@ Morning sessions: Short Read Sequencing Workshop
 	*Alternative:* direct download from GitHub
 3. **Open** the appropriate .Rproj file for each lesson in RStudio
 4. Follow instructions in `README.md` files and R scripts
-
+---
 
 ## Introduction to the [Tidyverse](https://tidyverse.tidyverse.org/)  
 [Slides]()  
 Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
 Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
-
 ---
 
 # Afternoon sessions
