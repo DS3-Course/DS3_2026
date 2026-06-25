@@ -14,12 +14,11 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 - [Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Prep3_Intro_R_RStudio_DS3_2026_Galbraith.pdf)  
 - Installing and updating R, RStudio, and Git: [README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
 
-## Alternatives to running locally:  
+### Alternatives to running locally:  
 - [Posit Cloud](https://posit.cloud/)  
 - [Cavatica](https://www.cavatica.org/)  
 - Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program) to use on Cavatica.
 
----  
 
 ## Workflow for accessing and updating course materials in this repository
 
@@ -59,10 +58,13 @@ They must be run in a **Terminal**, not in the R Console.
 Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
 Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
 
+---
+
 # Morning sessions: Short Read Sequencing Workshop
 Website: https://biodatasci.colorado.edu/shortread/  
 GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)
 
+---
 
 # Afternoon sessions
 Github (this repository): [DS3_2026](https://github.com/DS3-Course/DS3_2026)
