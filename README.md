@@ -23,12 +23,10 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 ## Workflow for accessing and updating course materials in this repository
 
 > **Git commands (`git clone`, `git pull`) are NOT R code**  
-> Run them in the **Terminal** (not the R Console)
-
-### Where to run them
-- **RStudio:** Terminal tab (next to Console)  
-- **Mac:** Terminal  
-- **Windows:** Git Bash or Command Prompt  
+> Run them in the **Terminal** (not the R Console):
+> - **RStudio:** Terminal tab (next to Console)  
+> - **Mac:** Terminal  
+> - **Windows:** Git Bash or Command Prompt  
 
 ### Git workflow
 
