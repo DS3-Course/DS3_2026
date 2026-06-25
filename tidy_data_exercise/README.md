@@ -1,19 +1,29 @@
 # Tidy data exercise
 
-1. To create a new Project by cloning this repository from Github: 
+> ⚠️ This project uses `renv` (install with `install.packages("renv")` if needed)
 
-      - Open RStudio and go to File > New Project... > Version Control > Git.  
-      - Enter the repository URL.  
-      - You may want to modify Project directory name and/or location.  
-      - Click on Create Project.  
-      - You may need to enter Github Username and PAT (or run `usethis::create_github_token()`).  
-      - Once project opens in RStudio, in R console run `renv::init()` to initialize project and install required packages  
-      (renv should already be installed: `install.packages("renv")`).  
+1. **Ensure you have the course materials** 
+      1. **Clone** this repository (first time only)
+         ```bash
+         git clone https://github.com/DS3-Course/DS3_2026.git
+         ```
+      2. **Pull** updates each day to ensure updated content:
+         ```bash
+         git pull
+         ```
+         *Alternative:* direct download from GitHub
 
-2. To open an existing Project:  
+---
 
-      a. Navigate to and double-click .Rproj file.  
-         or     
-      b. Open RStudio and go to File > Open Project... > Select .Rproj file.  
+2. **Open the project in RStudio**  
+      - **Option A:** Navigate to the folder and double-click the `.Rproj` file  
+      - **Option B:** In RStudio, go to `File > Open Project...` and select the `.Rproj` file  
 
-3. Once Project is open in RStudio, open R script(s) and work through analysis steps in script. 
+> 💡 Always open the `.Rproj` file first (not individual scripts)
+
+---
+
+3. **Run the analysis**
+
+   - Open the R script(s)  
+   - Work through the analysis steps in the script  
