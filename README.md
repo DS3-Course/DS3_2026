@@ -11,7 +11,7 @@ Main course website: https://includeds3.org/
 Morning sessions: Short Read Sequencing Workshop  
 	- Website: https://biodatasci.colorado.edu/shortread/  
 	- GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)  
-	
+
 ---
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
