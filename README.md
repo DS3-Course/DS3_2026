@@ -43,12 +43,14 @@ Morning sessions: Short Read Sequencing Workshop
 	*Alternative:* direct download from GitHub
 3. **Open** the appropriate .Rproj file for each lesson in RStudio
 4. Follow instructions in `README.md` files and R scripts
+
 ---
 
 ## Introduction to the [Tidyverse](https://tidyverse.tidyverse.org/)  
 [Slides]()  
 Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
 Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
+
 ---
 
 # Afternoon sessions
