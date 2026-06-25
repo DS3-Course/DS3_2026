@@ -1,7 +1,7 @@
 # Working with RStudio projects
 
 - RStudio projects make it easier to create and manage a self-contained set of directories, scripts, and data files. 
-- For more information, see [here](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) 
+- For more information, see [here](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) and [here](https://r4ds.hadley.nz/workflow-scripts.html#rstudio-projects) 
 
 ## Creating Projects
 To create a new Project in  RStudio, go to  `File > New Project...`  
