@@ -1,29 +1,32 @@
 # Working with RStudio projects
 
-- RStudio projects make it easier to create and manage a self-contained set of directories, scripts, and data files. 
+- RStudio Projects help organize a self-contained set of directories, scripts, and data files. 
 - For more information, see [here](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) and [here](https://r4ds.hadley.nz/workflow-scripts.html#rstudio-projects) 
 
 ## Creating Projects
-To create a new Project in  RStudio, go to  `File > New Project...`  
 
-Starting a new project:
-- Creates a `<PROJECT>.Rproj` file in the project directory. This file stores project-specific options. 
-- Creates a hidden directory `.Rproj.user` that stores project-specific temporary files. 
-- Loads the project in RStudio. 
+Create a new project in RStudio via:  
+`File > New Project...`
+
+### Starting a new project will:
+- Create a `<PROJECT>.Rproj` file (stores project-specific settings). 
+- Create a hidden `.Rproj.user` directory (stores temporary files). 
+- Load the project in RStudio. 
 
 >[!IMPORTANT]
->The `<PROJECT>.Rproj` file can be used as a shortcut to open the project directly from your filesystem. 
+>The `<PROJECT>.Rproj` file is a shortcut to open the project directly. 
 
-Opening a project in RStudio (among other things):
-- Starts a new R session. 
-- Sets the project directory as the current working directory.
-- Previously open source documents are restored in editor tabs.
+### Opening an existing project in RStudio will:
+- Start a new R session. 
+- Set the project directory as the current working directory.
+- Restore previously open files in the editor.
 
 >[!NOTE]
->You can work on multiple projects at once - each project runs in its own instance of RStudio.
+>You can work on multiple projects at once - each project runs in its own RStudio session.
 
+---
 
-## Organizing your RStudio Project
+# Organizing your RStudio Project
 
 ```
 Project_directory
@@ -36,17 +39,19 @@ Project_directory
 ├ project.Rproj
 ```
 
-- Only `/data` and R scripts are required - everything else can be recreated (incl. earlier versions). 
+- Only `/data` and R scripts are required - everything else can be recreated. 
 - `/data` should be treated as read-only. 
-- Analysis outputs go to `/results` or `/plots` (with version info). 
-- R workspace and large RDS are stored in `/rdata`. 
-- Additional directories can added as needed, eg `/Archive`. 
-- Use a standardized workflow where possible in a main `<analysis_vN.N>.R` script. 
-- Keep your main workflow clean by moving functions, common settings etc to `helper_functions.R` script. 
+- Analysis outputs go to `/results` or `/plots` (include version info). 
+- R workspace and large RDS files are stored in `/rdata`. 
+- Additional directories can added as needed (e.g. `/Archive`). 
+- Use a standardized workflow where possible in a main R script (e.g. `analysis_v1.0.R`). 
+- Keep your main workflow clean by moving reusable code (e.g. functions, common settings etc) to `helper_functions.R` script. 
 
-## Using this Project template
+---
 
-### Clone the entire course repository:
+# Using this Project template
+
+## Clone the entire course repository:
 1. **Clone** this repository (first time only)
    ```bash
    git clone https://github.com/DS3-Course/DS3_2026.git
