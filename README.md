@@ -8,7 +8,7 @@ Main course website: https://includeds3.org/
 The Data Science for Developing Scholars in Down Syndrome Research (DS3) course is a training program working to increase data sciences expertise across the INCLUDE Project and the Down syndrome research community.  
 <!-- Any other info/links here? -->
 
-# Preparatory Series
+---
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
 - [Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Prep3_Intro_R_RStudio_DS3_2026_Galbraith.pdf)  
@@ -20,15 +20,13 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 - Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program) to use on Cavatica.
 
 
-## Workflow for accessing and updating course materials in this repository
+## Git workflow for accessing and updating course materials in this repository
 
 > **Git commands (`git clone`, `git pull`) are NOT R code**  
 > Run them in the **Terminal** (not the R Console):
 > - **RStudio:** Terminal tab (next to Console)  
 > - **Mac:** Terminal  
 > - **Windows:** Git Bash or Command Prompt  
-
-### Git workflow
 
 1. **Clone** this repository (first time only)
 	```bash
