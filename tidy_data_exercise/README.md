@@ -1,7 +1,5 @@
 # Tidy data exercise
 
-> ⚠️ This project uses `renv` (install with `install.packages("renv")` if needed)
-
 1. **Ensure you have the course materials** 
       1. **Clone** this repository (first time only)
          ```bash
@@ -20,6 +18,8 @@
       - **Option B:** In RStudio, go to `File > Open Project...` and select the `.Rproj` file  
 
 > 💡 Always open the `.Rproj` file first (not individual scripts)
+  
+> ⚠️ This project uses `renv` (install with `install.packages("renv")` if needed)
 
 ---
 
