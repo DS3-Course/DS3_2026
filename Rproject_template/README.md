@@ -44,13 +44,18 @@ Project_directory
 - Use a standardized workflow where possible in a main `<analysis_vN.N>.R` script. 
 - Keep your main workflow clean by moving functions, common settings etc to `helper_functions.R` script. 
 
-## Cloning this Project template
+## Using this Project template
 
-Create a new Project by cloning this repository from Github: 
-
-   - Open RStudio and go to File > New Project... > Version Control > Git.  
-   - Enter the repository URL.  
-   - You may want to modify Project directory name and/or location.  
-   - Click on Create Project.  
-   - You may need to enter Github Username and PAT (or run `usethis::create_github_token()`).  
+### Clone the entire course repository:
+1. **Clone** this repository (first time only)
+   ```bash
+   git clone https://github.com/DS3-Course/DS3_2026.git
+   ```
+2. **Pull** updates each day to ensure updated content:
+   ```bash
+   git pull
+   ```
+   *Alternative:* direct download from GitHub
+3. **Open** the appropriate .Rproj file for each lesson in RStudio
+4. Open and edit R scripts
  
