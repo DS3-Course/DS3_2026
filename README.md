@@ -7,6 +7,7 @@
 The Data Science for Developing Scholars in Down Syndrome Research (DS3) course is a training program working to increase data sciences expertise across the INCLUDE Project and the Down syndrome research community.  
 <!-- Any other info/links here? -->
 Main course website: https://includeds3.org/  
+
 Morning sessions: Short Read Sequencing Workshop  
 	- Website: https://biodatasci.colorado.edu/shortread/  
 	- GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)  
