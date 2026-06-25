@@ -39,11 +39,14 @@ Project_directory
 ├ project.Rproj
 ```
 
+### Recommended practices
 - Only `/data` and R scripts are required - everything else can be recreated. 
 - `/data` should be treated as read-only. 
 - Analysis outputs go to `/results` or `/plots` (include version info). 
 - R workspace and large RDS files are stored in `/rdata`. 
 - Additional directories can added as needed (e.g. `/Archive`). 
+
+### Workflow tips
 - Use a standardized workflow where possible in a main R script (e.g. `analysis_v1.0.R`). 
 - Keep your main workflow clean by moving reusable code (e.g. functions, common settings etc) to `helper_functions.R` script. 
 
