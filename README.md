@@ -11,13 +11,47 @@ The Data Science for Developing Scholars in Down Syndrome Research (DS3) course 
 # Preparatory Series
 
 ## Getting started with [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/products/open-source/rstudio/)  
-[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Prep3_Intro_R_RStudio_DS3_2026_Galbraith.pdf)  
-Installing and updating R, RStudio, and Git: [README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
+- [Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Prep3_Intro_R_RStudio_DS3_2026_Galbraith.pdf)  
+- Installing and updating R, RStudio, and Git: [README](https://github.com/DS3-Course/DS3_2026/blob/main/installing_updating_R%20RStudio/README.md)
 
-Alternatives to running locally:  
-[Posit Cloud](https://posit.cloud/)  
-[Cavatica](https://www.cavatica.org/)  
-Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program)  
+## Alternatives to running locally:  
+- [Posit Cloud](https://posit.cloud/)  
+- [Cavatica](https://www.cavatica.org/)  
+- Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program) to use on Cavatica.
+
+---  
+
+## Workflow for accessing and updating course materials in this repository
+
+### 📟 Running Git commands
+
+The commands below (e.g., `git clone`, `git pull`) are **not R code**.
+They must be run in a **Terminal**, not in the R Console.
+
+### Where to run these commands
+
+#### Option 1: In RStudio (recommended)
+1. Open RStudio
+2. Click the **Terminal** tab (next to *Console*)
+3. Paste the command and press Enter
+
+#### Option 2: In your system terminal
+- Mac → Terminal
+- Windows → Git Bash or Command Prompt
+
+### Git workflow
+
+1. **Clone** this repository (first time only)
+	```bash
+	git clone https://github.com/DS3-Course/DS3_2026.git
+	```
+2. **Pull** updates each day to access new content:
+	```bash
+	git pull
+	```
+	*Alternative:* direct download from GitHub
+3. **Open** the appropriate .Rproj file for each lesson in RStudio
+4. Follow instructions in `README.md` and R scripts
 
 
 ## Introduction to the [Tidyverse](https://tidyverse.tidyverse.org/)  
@@ -25,7 +59,6 @@ Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud
 Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
 Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
 
-<!-- 
 # Morning sessions: Short Read Sequencing Workshop
 Website: https://biodatasci.colorado.edu/shortread/  
 GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)
@@ -34,6 +67,7 @@ GitHub: [Dowell-Lab/srworkshop](https://github.com/Dowell-Lab/srworkshop)
 # Afternoon sessions
 Github (this repository): [DS3_2026](https://github.com/DS3-Course/DS3_2026)
 
+<!-- 
 ## Day 1: The Human Trisome Project 
 Instructor: Matthew Galbraith  
 An overview of the Human Trisome Project and the journey from data to discovery.  
