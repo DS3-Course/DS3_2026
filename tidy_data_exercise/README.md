@@ -19,7 +19,7 @@
 
 > 💡 Always open the `.Rproj` file first (not individual scripts)
   
-> ⚠️ This project uses `renv` (install with `install.packages("renv")` if needed)
+> ⚠️ This project uses `renv` for package management (install with `install.packages("renv")` if needed)
 
 ---
 
