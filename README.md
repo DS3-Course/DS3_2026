@@ -53,10 +53,10 @@ Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/ti
 
 ---
 
+<!-- 
 # Afternoon sessions
 Github (this repository): [DS3_2026](https://github.com/DS3-Course/DS3_2026)
 
-<!-- 
 ## Day 1: The Human Trisome Project 
 Instructor: Matthew Galbraith  
 An overview of the Human Trisome Project and the journey from data to discovery.  
