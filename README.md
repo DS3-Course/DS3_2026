@@ -26,8 +26,8 @@ Morning sessions: Short Read Sequencing Workshop
 
 ## Git workflow for accessing and updating course materials in this repository
 
-> **Git commands (`git clone`, `git pull`) are NOT R code**  
-> Run them in the **Terminal** (not the R Console):
+> **Git commands (`git clone`, `git pull`) are NOT R code**.  
+> Run them in a **Terminal** (not the R Console):
 > - **RStudio:** Terminal tab (next to Console)  
 > - **Mac:** Terminal  
 > - **Windows:** Git Bash or Command Prompt  
@@ -47,37 +47,43 @@ Morning sessions: Short Read Sequencing Workshop
 ---
 
 ## Introduction to the [Tidyverse](https://tidyverse.tidyverse.org/)  
-[Slides]()  
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Prep4_Intro_Tidyverse_DS3_2026_Galbraith.pdf)  
 Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
 Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
 
 ---
 
-<!-- 
 # Afternoon sessions
 Github (this repository): [DS3_2026](https://github.com/DS3-Course/DS3_2026)
 
+---
+
 ## Day 1: The Human Trisome Project 
 Instructor: Matthew Galbraith  
-An overview of the Human Trisome Project and the journey from data to discovery.  
-[Slides](https://github.com/DS3-2025/slides/blob/main/Day1_HTP_Data_story_DS3_2025_Galbraith.pdf)  
+An overview of the Human Trisome Project and the journey from data to discovery to clinical trials.  
+[Slides]()  
 
+---
+
+<!-- 
 ## Day 2: Omics and Data Science Concepts
 Instructor: Matthew Galbraith  
 An introduction to important concepts in omics and best practices in data science.  
-[Slides](https://github.com/DS3-2025/slides/blob/main/Day2_Data_Science_Omics_concepts_DS3_2025_Galbraith.pdf)  
+[Slides]()  
+
+---
 
 ## Day 3: Reproducible data analysis using R and RStudio
 Instructor: Matthew Galbraith  
 A guide to conducting reproducible data analysis in R using RStudio and tidy principles.  
-[Slides](https://github.com/DS3-2025/slides/blob/main/Day3_Reproducible_Analysis_R_DS3_2025_Galbraith.pdf)  
-GitHub repository: [Rproject_template](https://github.com/DS3-2025/Rproject_template)
+[Slides]()  
+Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
 
 ## Day 4: Data Cleaning and Exploratory Data Analysis
 Instructor: Matthew Galbraith  
 Exercises in data cleaning/wrangling in R using tidyverse principles and tools.   
-GitHub repository: [intro_exploratory_data_analysis](https://github.com/DS3-2025/intro_exploratory_data_analysis)  
-GitHub repository: [tidy_data_exercise](https://github.com/DS3-2025/tidy_data_exercise)
+Intro to exploratory data analysis: [README]()  
+Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
 
 ## Day 5: Intro to Linear Regression and Hypothesis Testing in R
 Instructor: Matthew Galbraith  
