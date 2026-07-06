@@ -61,7 +61,7 @@ Github (this repository): [DS3_2026](https://github.com/DS3-Course/DS3_2026)
 ## Day 1: The Human Trisome Project 
 Instructor: Matthew Galbraith  
 An overview of the Human Trisome Project and the journey from data to discovery to clinical trials.  
-[Slides]()  
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Day1_HTP_Data_story_DS3_2026_Galbraith.pdf)  
 
 ---
 
