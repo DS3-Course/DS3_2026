@@ -71,13 +71,17 @@ An introduction to important concepts in omics and best practices in data scienc
 [Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Day2_Data_Science_Omics_concepts_DS3_2026_Galbraith.pdf)  
 
 ---
-<!-- 
+
 ## Day 3: Reproducible data analysis using R and RStudio
 Instructor: Matthew Galbraith  
 A guide to conducting reproducible data analysis in R using RStudio and tidy principles.  
-[Slides]()  
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Day3_Reproducible_Analysis_R_DS3_2026_Galbraith.pdf)  
 Rproject template: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Rproject_template/README.md)  
+Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
 
+---
+
+<!-- 
 ## Day 4: Data Cleaning and Exploratory Data Analysis
 Instructor: Matthew Galbraith  
 Exercises in data cleaning/wrangling in R using tidyverse principles and tools.   
