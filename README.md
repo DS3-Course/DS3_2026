@@ -81,13 +81,15 @@ Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/ti
 
 ---
 
-<!-- 
 ## Day 4: Data Cleaning and Exploratory Data Analysis
 Instructor: Matthew Galbraith  
-Exercises in data cleaning/wrangling in R using tidyverse principles and tools.   
-Intro to exploratory data analysis: [README]()  
-Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md)  
+Exercises in data wrangling and exploration in R using tidyverse principles and tools.   
+Tidy data exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/tidy_data_exercise/README.md) 
+Intro to exploratory data analysis: [README](https://github.com/DS3-Course/DS3_2026/blob/main/intro_exploratory_data_analysis/README.md)  
 
+---
+
+<!-- 
 ## Day 5: Intro to Linear Regression and Hypothesis Testing in R
 Instructor: Matthew Galbraith  
 An introduction to statistical modeling and testing in R  
