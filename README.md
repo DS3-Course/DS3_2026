@@ -89,7 +89,6 @@ Intro to exploratory data analysis: [README](https://github.com/DS3-Course/DS3_2
 
 ---
 
-<!-- 
 ## Day 5: Intro to Linear Regression and Hypothesis Testing in R
 Instructor: Matthew Galbraith  
 An introduction to statistical modeling and testing in R  
@@ -98,7 +97,7 @@ Linear regression exercise: [README](https://github.com/DS3-Course/DS3_2026/blob
 HTP linear regression example: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_linear_regression_example/README.md)  
 
 ---
-
+<!-- 
 ## Day 6: Advanced Data Visualization and Analysis in R
 Instructor: Matthew Galbraith  
 Examples and discussion of effective data visualization using ggplot in R.   
