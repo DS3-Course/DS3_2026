@@ -1,0 +1,12 @@
+Variable	Example	Description
+LabID	HTP0677B	Human Trisome Project sample/biospecimen identifier
+Sample_type	Plasma	Type of sample taken/extracted from biospecimen
+Platform	MSD	Description of assay platform/strategy
+Batch	Sample processing/measurement batch
+Analyte	FGF (basic)	Analyte name
+Units	pg/mL	Description of measurement units
+Value	1.319083834	Measurement value
+N_imputed_wells	1	Number of out-of-range wells replaced with minimum/maximum in-range values for this analyte per pair of technical duplicate wells; use caution with analytes with >10% of total wells imputed
+Data_contact	email address	Contact for queries about data set
+Date_exported	11102021	Date of data set preparation/export
+Script	HTP_data_Synapse_v0.1.R	Data preparation script

@@ -93,9 +93,11 @@ Intro to exploratory data analysis: [README](https://github.com/DS3-Course/DS3_2
 ## Day 5: Intro to Linear Regression and Hypothesis Testing in R
 Instructor: Matthew Galbraith  
 An introduction to statistical modeling and testing in R  
-[Slides](https://github.com/DS3-2025/slides/blob/main/Day5_Intro_Linear_Regression_Hypothesis_Testing_DS3_2025_Galbraith.pdf)  
-GitHub repository: [linear_regression_exercise](https://github.com/DS3-2025/linear_regression_exercise)  
-GitHub repository: [HTP_linear_regression_example](https://github.com/DS3-2025/HTP_linear_regression_example)  
+[Slides]()  
+Linear regression exercise: [README](https://github.com/DS3-Course/DS3_2026/blob/main/linear_regression_exercise/README.md)  
+HTP linear regression example: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_linear_regression_example/README.md)  
+
+---
 
 ## Day 6: Advanced Data Visualization and Analysis in R
 Instructor: Matthew Galbraith  
@@ -104,6 +106,8 @@ Examples and discussion of effective data visualization using ggplot in R.
 GitHub repository: [HTP_linear_regression_example](https://github.com/DS3-2025/HTP_linear_regression_example)  
 GitHub repository: [HTP_DESeq2_analysis](https://github.com/DS3-2025/HTP_DESeq2_analysis)  
 GitHub repository: [HTP_single_cell_dataviz_mass_cytometry](https://github.com/DS3-2025/HTP_single_cell_dataviz_mass_cytometry)  
+
+---
 
 ## Day 7: Advanced Data Visualization and Analysis in R
 Instructor: Jim Costello  
