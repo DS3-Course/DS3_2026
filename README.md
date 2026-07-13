@@ -98,33 +98,37 @@ Linear regression exercise: [README](https://github.com/DS3-Course/DS3_2026/blob
 HTP linear regression example: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_linear_regression_example/README.md)  
 
 ---
-<!-- 
+
 ## Day 6: Advanced Data Visualization and Analysis in R
 Instructor: Matthew Galbraith  
-Examples and discussion of effective data visualization using ggplot in R.   
-[Slides](https://github.com/DS3-2025/slides/blob/main/Day6_Advanced_Data_Viz_DS3_2025_Galbraith.pdf)  
-GitHub repository: [HTP_linear_regression_example](https://github.com/DS3-2025/HTP_linear_regression_example)  
-GitHub repository: [HTP_DESeq2_analysis](https://github.com/DS3-2025/HTP_DESeq2_analysis)  
-GitHub repository: [HTP_single_cell_dataviz_mass_cytometry](https://github.com/DS3-2025/HTP_single_cell_dataviz_mass_cytometry)  
+Examples and discussion of effective andvanced data visualizations using ggplot in R.   
+[Slides]()  
+HTP linear regression example: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_linear_regression_example/README.md)  
+HTP DESeq2 analysis: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_DESeq2_analysis/README.md)  
+HTP single-cell dataviz mass cytometry: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_single_cell_dataviz_mass_cytometry/README.md)  
 
 ---
-
+<!-- 
 ## Day 7: Advanced Data Visualization and Analysis in R
 Instructor: Jim Costello  
 Applications of simple machine learning methods to predict outcomes leveraging HTP datasets.    
-GitHub repository: [Visualize_Cluster_HTP](https://github.com/DS3-2025/Visualize_Cluster_HTP)  
+Visualize Cluster HTP: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Visualize_Cluster_HTP/README.md)  
+
+---
 
 ## Day 8: Supervised Machine Learning with HTP examples
 Instructor: Jim Costello   
 Applications of simple machine learning methods to predict outcomes leveraging HTP datasets.  
-GitHub repository: [PredictiveModels](https://github.com/DS3-2025/PredictiveModels)
+Predictive Models: [README](https://github.com/DS3-Course/DS3_2026/blob/main/PredictiveModels/README.md)
+
+---
 
 ## Day 9: Analysis of INCLUDE data with R using Cavatica
-Instructor: Matthew Galbraith and Velsera   
-[Slides](https://github.com/DS3-2025/slides/blob/main/Day9_Velsera_Cavatica_slides.pdf)  
+Instructors: Matthew Galbraith and Velsera   
+[Slides]()  
 A guide to locating data in the INCLUDE Data Hub and transfering to the Cavatica platform for analysis.  
 Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program)  
-GitHub repository: [HTP_linear_regression_Cavatica](https://github.com/DS3-2025/HTP_linear_regression_Cavatica)
+HTP linear regression Cavatica: [README]()
  -->
 
 
