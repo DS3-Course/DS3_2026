@@ -1,8 +1,8 @@
 # HTP DESeq2 analysis
 
-**Temporary fix for biobroom tbl_df error:**
-assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
-add this to your main R script.
+**Temporary fix for biobroom tbl_df error:**  
+assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")  
+add this to your main R script.  
 
 1. **Ensure you have the course materials** 
       1. **Clone** this repository (first time only)
