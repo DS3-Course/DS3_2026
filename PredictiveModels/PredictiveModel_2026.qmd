@@ -150,6 +150,10 @@ autoplot(pca, data=cytokines_df_annos, col='Karyotype')
 
 Note: Make sure you install the `hclust` package in R. Some of the code is taken from this nice [tutorial post](https://bradleyboehmke.github.io/HOML/hierarchical.html) on hierarchical clustering. 
 
+Here is another [post](https://dataaspirant.com/hierarchical-clustering-algorithm/) that is helpful.
+
+This [post](datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/) describes the different approaches to find the optimal cluster number in hierarchical clustering, though these methods work in other clustering approaches.
+
 ```{r, message = F, warning = F}
 
 # we will first perform agglomerative hierachical clustering (bottom up) using the agnes function in the cluster package
@@ -159,7 +163,8 @@ Note: Make sure you install the `hclust` package in R. Some of the code is taken
 m <- c( "average", "single", "complete", "ward")
 names(m) <- c( "average", "single", "complete", "ward")
 
-#function to compute agglomerative coefficient
+#function to compute agglomerative coefficient, where 1 indicate strong, well-formed, consistent cluster
+# and 0 represents completely random, disparate, and loose clusters.
 ac <- function(x) {
   agnes(scale(cytokines_df), method = x)$ac
 }
@@ -208,6 +213,13 @@ autoplot(pca, data=cytokines_df_annos, col='dianaclusters')
 ### Linear Models {#glmnet}
 
 Note: Make sure you install the `glmnet` package in R. We will use this for all examples of Ridge, Lasso and elastic net regression.
+
+![regression examples](https://mldemystified.com/posts/basics-of-ml/linear-regression/images/poly_regression_overfitting1.png#center)
+
+We will be reviewing concepts from the following videos:
+- [Vector Norms](https://www.youtube.com/watch?v=5fN2J8wYnfw)
+- [Ridge Regression](https://www.youtube.com/watch?v=5asL5Eq2x0A)
+- [Lasso Regression](https://www.youtube.com/watch?v=jbwSCwoT51M)
 
 ```{r, message = F, warning = F}
 

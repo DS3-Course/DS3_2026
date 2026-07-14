@@ -222,7 +222,7 @@ ggplot(var_explained, aes(x=PC, y=var)) + geom_line() + xlab("Principal Componen
 
 ### UMAP: Uniform Manifold Approximation and Projection
 
-We will use UMAP to plot the data and explore sample information. Bookmark the [Statquest video](https://www.youtube.com/watch?v=eN0wFzBA4Sc) on UMAP to review again and again in the future.
+We will use UMAP to plot the data and explore sample information. Bookmark the [UMAP Statquest video](https://www.youtube.com/watch?v=eN0wFzBA4Sc) to review again and again in the future.
 
 Here is a [useful post](https://pair-code.github.io/understanding-umap/) that helps to undetstand the relationship between the parameters and visualize in UMAP.
 
@@ -251,7 +251,7 @@ ggplot(cytokines_df_annos_umap, aes(x=UMAP1, y=UMAP2, color=Karyotype)) + geom_p
 
 ### t-distributed stochastic neighbor embedding
 
-We will use tSNE to plot the data and explore sample information
+We will use tSNE to plot the data and explore sample information. Bookmark the [tSNE Statquest video](https://www.youtube.com/watch?v=NEaUSP4YerM) to review again and again in the future.
 
 ```{r, message=F}
 # tSNE is stochastic so it will produce different results based on the random seed. To get the same results, you will need to fix the seed
