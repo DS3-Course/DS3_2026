@@ -1,0 +1,438 @@
+---
+title: "Predictive models"
+author: "Jim Costello"
+date: "7/15/2026"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  echo: true
+---
+
+
+Note that you will need the following packages
+* caret
+* glmnet
+* reshape2
+* gplots
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("cluster")
+library("factoextra") # plots and visualization
+library("ggfortify") # plots and visualization
+library("ggplot2") # plots and visualization
+library("glmnet") # elastic net, ridge, lasso regression
+library("caret") # package to aide with ML tasks
+library("limma") # differential epxression
+library("caTools")
+library("gplots")  
+library("reshape2")
+library("randomForest")
+library("readxl") # used to read .xlsx files
+library("openxlsx") # used for data export as Excel workbooks
+library("tidyverse") # data wrangling and ggplot2
+library("rstatix") # pipe- and tidy-friendly statistical tests
+library("ggrepel") # for labelling genes
+library("ggforce") # for sina plots
+library("tictoc") # timer
+library("skimr") # data summary
+library("broom") # tidying model objects
+library("janitor") # data cleaning
+library("patchwork") # assembling multiple plots
+library("conflicted")
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+conflict_prefer("count", "dplyr")
+
+setwd("/Users/costellj/Dropbox/Colorado/DS3/")
+#detach("package:here", unload=TRUE) # run this to reset here()
+library("here") # generates path to current project directory
+here()
+source(here("2026", "helper_functions.R")) # load helper functions
+
+```
+
+### Load Cytokine data and clinial information {#data}
+
+The data we will use were collected from individuals with and without Down sydrome. The samples are from blood plasma and cytokine data were generated for each individual.
+
+```{r, message=F}
+
+# define the file paths to the input data
+htp_meta_data_file <- here("2026/data", "HTP_Metadata_v0.5_Synapse.txt") 
+htp_cytokines_data_file <- here("2026/data", "HTP_MSD_Cytokines_Synapse.txt") 
+
+# Other parameters
+# standard_colors <- c("Group1" = "#F8766D", "Group2" = "#00BFC4")
+standard_colors <- c("Control" = "gray60", "T21" = "#009b4e")
+out_file_prefix <- "linear_regression_htp_cytokines_v0.1_"
+# End required parameters ###
+
+
+# 1 Read in and inspect data ----
+## 1.1 Read in meta data ----
+htp_meta_data <- htp_meta_data_file |> 
+  read_tsv() |> 
+  mutate(
+    Karyotype = fct_relevel(Karyotype, c("Control", "T21")), # convert to factor and set order
+    Sex = fct_relevel(Sex, "Female"), # convert to factor and set order
+    Sample_source_code = as_factor(Sample_source_code) # convert to factor - default is numerical order
+  )
+# inspect
+htp_meta_data
+htp_meta_data |> skimr::skim()
+#
+here("2026/data", "HTP_Metadata_v0.5_dictionary.txt") |> read_tsv()
+#
+
+## 1.2 Read in abundance data ----
+htp_cytokines_data <- htp_cytokines_data_file |> 
+  read_tsv()
+  # janitor::clean_names(case = "none")
+# inspect
+htp_cytokines_data # 25,758 rows
+htp_cytokines_data |> skimr::skim()
+htp_cytokines_data |> distinct(Analyte) # 54 Analytes
+htp_cytokines_data |> distinct(LabID) # 477 LabIDs
+#
+here("2026/data", "HTP_MSD_Cytokines_dictionary.txt") |> read_tsv()
+#
+
+## 1.3 Join meta data with data type 1 and data type 2 ----
+htp_meta_cytokines_data <- htp_cytokines_data |> 
+  inner_join(htp_meta_data, by="LabID")
+# check number of rows returned !!!
+
+
+# 2 Data exploration  ----
+## 2.1 basic check of data distribution(s) ----
+htp_meta_cytokines_data |> 
+  filter(Analyte == "CRP") |> 
+  ggplot(aes(Karyotype, log2(Value), color = Karyotype)) +
+  geom_boxplot()
+#
+
+#create a data.frame of individuals by cytokines
+cytokines_df <- as.data.frame(pivot_wider(htp_meta_cytokines_data, names_from = "Analyte", values_from = "Value", id_cols = "LabID"))
+row.names(cytokines_df) <- cytokines_df$LabID
+cytokines_df <- log2(cytokines_df[,-1])
+
+# extract the annotations for each of the samples
+pca_annos <- as.data.frame(htp_meta_data %>% filter(LabID %in% row.names(cytokines_df)))
+row.names(pca_annos) <- pca_annos$LabID
+pca_annos <- pca_annos[row.names(cytokines_df),]
+
+# create a dataframe that will be used for plots that contains the cytokine and patient information.
+cytokines_df_annos <- cbind(cytokines_df, pca_annos)
+
+# PCA with HTP Cytokine data
+pca <- prcomp(na.omit(cytokines_df), scale=T)
+
+# remove outlier samples
+hist(pca$x[,1], main ="PC1")
+sort(pca$x[,1])
+row.names(cytokines_df)[pca$x[,1] < -10]
+cytokines_df <- cytokines_df[pca$x[,1] > -10,]
+cytokines_df_annos <- cytokines_df_annos[pca$x[,1] > -10,]
+dim(cytokines_df)
+dim(cytokines_df_annos)
+pca <- prcomp(na.omit(cytokines_df), scale=T)
+autoplot(pca, data=cytokines_df_annos, col='Karyotype')
+
+
+
+```
+
+### Hierarchical Clustering {#hclust}
+
+Note: Make sure you install the `hclust` package in R. Some of the code is taken from this nice [tutorial post](https://bradleyboehmke.github.io/HOML/hierarchical.html) on hierarchical clustering. 
+
+```{r, message = F, warning = F}
+
+# we will first perform agglomerative hierachical clustering (bottom up) using the agnes function in the cluster package
+
+# test the various linkage methods to see which provides the strongest clusters
+#define linkage methods
+m <- c( "average", "single", "complete", "ward")
+names(m) <- c( "average", "single", "complete", "ward")
+
+#function to compute agglomerative coefficient
+ac <- function(x) {
+  agnes(scale(cytokines_df), method = x)$ac
+}
+
+#calculate agglomerative coefficient for each clustering linkage method
+sapply(m, ac)
+
+#generate the agglomerative clustering and perform some visualizations
+ac <- agnes(scale(cytokines_df), method="ward")
+plot(as.hclust(ac), cex=0.3, main="Dendrogram for AGNES")
+rect.hclust(ac, k = 4, border = 2:5)
+
+# lets see how we can determine the appropriate cluster size
+
+# The total within-cluster sum of square (wss) measures the compactness of the clustering and we want it to be as small as possible. 
+p1 <- fviz_nbclust(scale(cytokines_df), FUN = hcut, method = "wss", 
+                   k.max = 10) +
+  ggtitle("(A) Elbow method")
+# silhouette method determines how well each object lies within its cluster. A high average silhouette width indicates a good clustering.
+p2 <- fviz_nbclust(scale(cytokines_df), FUN = hcut, method = "silhouette", 
+                   k.max = 10) +
+  ggtitle("(B) Silhouette method")
+# The gap statistic compares the total intracluster variation for different values of k with their expected values under null reference distribution of the data (i.e. a distribution with no obvious clustering). The reference dataset is generated using Monte Carlo simulations of the sampling process.
+p3 <- fviz_nbclust(scale(cytokines_df), FUN = hcut, method = "gap_stat", 
+                   k.max = 10) +
+  ggtitle("(C) Gap statistic")
+gridExtra::grid.arrange(p1, p2, p3, nrow = 1)
+
+
+# lets see where the clusters fall in PCA space
+cytokines_df_annos$agnesclusters <- as.factor(cutree(ac, k=5))
+autoplot(pca, data=cytokines_df_annos, col='agnesclusters')
+
+
+# we will next perform divisive hierarchical clustering (top down) using the diana function in the cluster package
+di <- diana(scale(cytokines_df))
+di$dc
+plot(as.hclust(di), cex=0.3, main="Dendrogram for DIANA")
+
+cytokines_df_annos$dianaclusters <- as.factor(cutree(di, k=5))
+autoplot(pca, data=cytokines_df_annos, col='dianaclusters')
+
+
+```
+
+### Linear Models {#glmnet}
+
+Note: Make sure you install the `glmnet` package in R. We will use this for all examples of Ridge, Lasso and elastic net regression.
+
+```{r, message = F, warning = F}
+
+# we will predict on BMI, so remove individuals without any BMI information.
+cytokines_df_annos$BMI <- cytokines_df_annos$Weight_kg/(cytokines_df_annos$Height_cm/100)^2
+cytokines_df <- cytokines_df[!is.na(cytokines_df_annos$BMI),]
+cytokines_df_annos <- cytokines_df_annos[!is.na(cytokines_df_annos$BMI),]
+
+######## Organize the data for fitting linear models:
+response = cytokines_df_annos$BMI
+
+# Define cutoffs. We will use standard BMI scales to define normal, overweight, obese
+normal.cutoff =  25  
+obese.cutoff = 30
+
+# Append response variable to matrix 
+cytokines_df_annos$Response = ifelse(response >= obese.cutoff, 'obese',
+                          ifelse(response <= normal.cutoff, 'normal', 'overweight'))
+
+# Save group sizes for comparison
+tab = table(cytokines_df_annos$Response)
+
+# Check plot to make sure our cutoffs look reasonable
+group.colors = ifelse(cytokines_df_annos$Response == 'obese', 'blue',
+                      ifelse(cytokines_df_annos$Response == 'normal', 'red', 'black'))
+
+plot(response, col = group.colors, pch = 16,
+     main = 'BMI across the HTP cohort', 
+     xlab = 'Individuals',
+     ylab = 'BMI')
+legend('topright', pch = 16, col = c('red', 'blue', 'black'),
+       legend = c(paste0(sprintf('Normal (n = %d)', tab['normal'])), 
+                  paste0(sprintf('Obese (n = %d)', tab['obese'])), 
+                  paste0(sprintf('Overweight (n = %d)', tab['overweight']))))
+
+# Filter out the overweight and make the two responses a factor
+cytokines_df = cytokines_df[cytokines_df_annos$Response != 'overweight',]
+cytokines_df_annos = cytokines_df_annos[cytokines_df_annos$Response != 'overweight',]
+cytokines_df$Response <- factor(cytokines_df_annos$Response)
+table(cytokines_df$Response)
+
+
+# Define train and test sets
+individuals = row.names(cytokines_df)
+train.percent = .75
+inTrain = individuals %in% sample(individuals, floor(train.percent*length(individuals)))
+train.data = cytokines_df[inTrain,]
+test.data = cytokines_df[!inTrain,]
+
+# Make sure we have enough of each group in test set
+table(test.data$Response)
+table(train.data$Response)
+
+```
+
+#### Example 1 - Ridge regression
+
+```{r message = F, warning = F}
+# Make feature matrix and response vector
+feature.matrix = as.matrix(train.data[,-ncol(train.data)])  # Exclude the last column (Response)
+response.vector = train.data$Response
+
+# Fit linear Ridge regression model
+ridge.fit = glmnet(x = feature.matrix,      # features = all cytokines
+                   y = response.vector,     # binary  response
+                   family = 'binomial',     # we are doing binary classification
+                   alpha = 0)               # alpha = 0 is the Ridge penalty
+
+# Use the fit model to predict on the testing data
+testing.matrix= as.matrix(test.data[,-ncol(test.data)]) # Exclude the last column (Response)
+testing.response = test.data$Response
+ridge.preds = predict(ridge.fit, newx = testing.matrix, type = 'class')
+
+# Take a look at how our model did
+table(Predicted_Group = ridge.preds[,ncol(ridge.preds)], 
+      Actual_Group = test.data$Response)
+
+ReportPerfMetrics = function(predicted.labels, true.labels, pos.class){
+  # Calculate the accuracy, precision and recall for two-class prediction
+  tp = sum(true.labels == pos.class & predicted.labels == pos.class)
+  fp = sum(true.labels != pos.class & predicted.labels == pos.class)
+  tn = sum(true.labels != pos.class & predicted.labels != pos.class)
+  fn = sum(true.labels == pos.class & predicted.labels != pos.class)
+  n = tp + fp + tn + fn
+  
+  accuracy = (tp + tn)/n
+  precision = tp/(tp + fp)
+  recall = tp/(tp + fn)
+  
+  return(list(Accuracy = accuracy, Precision = precision, Recall = recall))
+}
+
+ridge.metrics = ReportPerfMetrics(ridge.preds[,ncol(ridge.preds)], test.data$Response, 'obese')
+ridge.metrics
+
+```
+
+#### Example 2 - Lasso regression
+
+```{r, message = F, warning = F}
+
+# Fit linear Lasso regression model
+lasso.fit = glmnet(x = feature.matrix,      # features = all cytokines
+                   y = response.vector,     # binary response
+                   family = 'binomial',     # we are doing binary classification
+                   alpha = 1)               # alpha = 1 is the Lasso penalty
+
+# Use the fit model to predict on the testing data
+lasso.preds = predict(lasso.fit, newx = testing.matrix, type = 'class')
+
+# Take a look at how our model did
+table(Predicted_Group = lasso.preds[,ncol(lasso.preds)], 
+      Actual_Group = test.data$Response)
+lasso.metrics = ReportPerfMetrics(lasso.preds[,ncol(lasso.preds)], test.data$Response, 'obese')
+lasso.metrics
+
+#lets compare lasso and ridge coefficients
+plot(lasso.fit, xvar="lambda", label=T)
+plot(ridge.fit, xvar = "lambda", label = TRUE)
+
+```
+
+#### Example 3 - Elastic net regression with cross-validation
+
+```{r, message = F, warning = F}
+
+# Fit elastic net model
+elastic.fit = cv.glmnet(x = feature.matrix,      # features = all cytokines
+                   y = response.vector,          # binary response
+                   family = 'binomial',          # we are doing binary classification
+                   nfolds = 5,
+                   type.measure = 'auc',
+                   alpha = 0.5)
+
+# Use the fit model to predict on the testing data
+elastic.preds = predict(elastic.fit, newx = testing.matrix, type = 'class')
+
+# Take a look at how our model did
+elastic.metrics = ReportPerfMetrics(elastic.preds[,ncol(elastic.preds)], test.data$Response, 'obese')
+table(Predicted_Group = elastic.preds[,ncol(elastic.preds)], 
+      Actual_Group = test.data$Response)
+
+# Plot the cross-validation curve, and upper and lower standard deviation curves, as a function of the lambda values used
+plot(elastic.fit)
+
+```
+  
+### Sparse Linear Regression Evaluation {#evaluation}
+
+For discussion on the alpha and lambda parameters, check out this [review of `glmnet` and elastic net regression](http://www.moseslab.csb.utoronto.ca/alan/glmnet_presentation.pdf).
+
+```{r, message = F, warning = F}
+# Compare the 3 examples, alpha = 0, alpha = 1, and alpha = 0.5
+results = cbind(Ridge = ridge.metrics, Lasso = lasso.metrics, ElasticNet = elastic.metrics)
+results
+
+######### Find optimal alpha and lambda with caret cross-validation
+# Construct object for holding training parameters
+my.train.control = trainControl(method = "repeatedcv", number = 5, returnResamp = "all")
+
+# Train an elastic net model with varying alpha and lambda
+model = train(Response ~ ., data = train.data, 
+               method = "glmnet",                                        # Fit an elastic net model
+               metric = "Accuracy",                                      # Use accuracy as the loss for cross validation
+               tuneGrid = expand.grid(.alpha = seq(0, .5, by = .05),     # Try these alpha values
+                                      .lambda = seq(0, 1, by = .05)),    # And these lambda values
+               trControl = my.train.control)
+model
+
+# Reshape the data into a matrix for making a heatmap
+model.results = model$results
+model.cast = dcast(model.results, alpha ~ lambda, value.var = 'Accuracy')
+row.names(model.cast) = model.cast$alpha
+model.cast$alpha = NULL
+
+# Make a heatmap of the alphas and lambdas
+my.palette <- colorRampPalette(c("blue", "red"))(n = 100)
+heatmap.2(as.matrix(model.cast), 
+          col = my.palette,           # Define heatmap colors
+          Rowv = F, Colv = F,         # Don't cluster/reorder rows or columns
+          dendrogram = 'none',        # Don't plot dendrogram
+          trace = 'none',             # Don't draw trace lines
+          density.info = 'none',      # Don't draw histogram on color key
+          key.xlab = 'ROC',           # Label the color key
+          main = 'Optimizing alpha and lambda values',
+          xlab = 'Lambda values',
+          ylab = 'Alpha values')             
+
+```
+
+### Random Forest {#randomforest}
+
+This is a nice reference for the basics on the [Random Forest](https://www.simplilearn.com/tutorials/data-science-tutorial/random-forest-in-r). You can also review the [Statquest](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ&t=1s) on Random Forests.
+
+```{r, message = F, warning = F}
+
+# Fitting Random Forest to the train dataset 
+set.seed(120)  # Setting seed 
+classifier_RF = randomForest(x = feature.matrix, 
+                             y = response.vector, 
+                             ntree = 500) 
+classifier_RF 
+  
+# Predicting the Test set results 
+y_pred = predict(classifier_RF, newdata = testing.matrix) 
+  
+# Confusion Matrix 
+confusion_mtx = table(testing.response, y_pred) 
+confusion_mtx 
+  
+# Plotting model 
+plot(classifier_RF) 
+legend("topright", legend=colnames(classifier_RF$err.rate), fill=c("black", "red", "green"))
+  
+# Importance plot 
+importance(classifier_RF) 
+  
+# Variable importance plot 
+varImpPlot(classifier_RF) 
+```
+
+### Session Information {#session}
+
+```{r, message = F}
+sessionInfo()
+```
+
+

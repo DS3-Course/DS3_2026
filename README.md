@@ -108,7 +108,7 @@ HTP DESeq2 analysis: [README](https://github.com/DS3-Course/DS3_2026/blob/main/H
 HTP single-cell dataviz mass cytometry: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_single_cell_dataviz_mass_cytometry/README.md)  
 
 ---
-<!-- 
+
 ## Day 7: Advanced Data Visualization and Analysis in R
 Instructor: Jim Costello  
 Applications of simple machine learning methods to predict outcomes leveraging HTP datasets.    
@@ -122,7 +122,7 @@ Applications of simple machine learning methods to predict outcomes leveraging H
 Predictive Models: [README](https://github.com/DS3-Course/DS3_2026/blob/main/PredictiveModels/README.md)
 
 ---
-
+<!-- 
 ## Day 9: Analysis of INCLUDE data with R using Cavatica
 Instructors: Matthew Galbraith and Velsera   
 [Slides]()  

@@ -1,0 +1,290 @@
+---
+title: "PCA, UMAP, and tSNE"
+author: "Jim Costello"
+date: "7/14/2026"
+format:
+  html:
+    toc: true
+    toc-location: left
+    embed-resources: true
+editor: visual
+---
+
+### Load necessary packages
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# if you need to install packages, use the following
+#install.packages("umap")
+#install.packages("rlang")
+#install.packages("ggplot2")
+
+library("ggplot2") # plots and visualization
+library("ggfortify") # plots and visualization
+library("factoextra") # plots and visualization
+library("Rtsne") # tSNE
+library("umap") # UMAP
+library("limma") # differential expression
+library("cluster") # clustering package
+library("readxl") # used to read .xlsx files
+library("openxlsx") # used for data export as Excel workbooks
+library("tidyverse") # data wrangling and ggplot2
+library("rstatix") # pipe- and tidy-friendly statistical tests
+library("ggrepel") # for labelling genes
+library("ggforce") # for sina plots
+library("tictoc") # timer
+library("skimr") # data summary
+library("broom") # tidying model objects
+library("janitor") # data cleaning
+library("patchwork") # assembling multiple plots
+library("conflicted")
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+conflict_prefer("count", "dplyr")
+
+# note that you will need to change your working directory to be the path on your computer.
+setwd("/Users/costellj/Dropbox/Colorado/DS3/")
+#detach("package:here", unload=TRUE) # run this to reset here()
+library("here") # generates path to current project directory
+here()
+
+# you will need to put the helper functions in the active working directory and the data that is used 
+# in the next section to a "data" folder in the active working directory
+source(here("2026", "helper_functions.R")) # load helper functions
+
+
+```
+
+### Load Cytokine data and clinial information
+
+The data we will use were collected from individuals with and without Down sydrome. The samples are from blood plasma and cytokine data were generated for each individual.
+
+```{r, message=F}
+# define the file paths to the input data
+htp_meta_data_file <- here("2026/data", "HTP_Metadata_v0.5_Synapse.txt") 
+htp_cytokines_data_file <- here("2026/data", "HTP_MSD_Cytokines_Synapse.txt") 
+
+# Other parameters
+# standard_colors <- c("Group1" = "#F8766D", "Group2" = "#00BFC4")
+standard_colors <- c("Control" = "gray60", "T21" = "#009b4e")
+out_file_prefix <- "linear_regression_htp_cytokines_v0.1_"
+# End required parameters ###
+
+
+# 1 Read in and inspect data ----
+## 1.1 Read in meta data ----
+htp_meta_data <- htp_meta_data_file |> 
+  read_tsv() |> 
+  mutate(
+    Karyotype = fct_relevel(Karyotype, c("Control", "T21")), # convert to factor and set order
+    Sex = fct_relevel(Sex, "Female"), # convert to factor and set order
+    Sample_source_code = as_factor(Sample_source_code) # convert to factor - default is numerical order
+  )
+# inspect
+htp_meta_data
+htp_meta_data |> skimr::skim()
+#
+here("2026/data", "HTP_Metadata_v0.5_dictionary.txt") |> read_tsv()
+#
+
+## 1.2 Read in abundance data ----
+htp_cytokines_data <- htp_cytokines_data_file |> 
+  read_tsv()
+  # janitor::clean_names(case = "none")
+# inspect
+htp_cytokines_data # 25,758 rows
+htp_cytokines_data |> skimr::skim()
+htp_cytokines_data |> distinct(Analyte) # 54 Analytes
+htp_cytokines_data |> distinct(LabID) # 477 LabIDs
+#
+here("2026/data", "HTP_MSD_Cytokines_dictionary.txt") |> read_tsv()
+#
+
+## 1.3 Join meta data with data type 1 and data type 2 ----
+htp_meta_cytokines_data <- htp_cytokines_data |> 
+  inner_join(htp_meta_data, by="LabID")
+# check number of rows returned !!!
+
+
+# 2 Data exploration  ----
+## 2.1 basic check of data distribution(s) ----
+htp_meta_cytokines_data |> 
+  filter(Analyte == "CRP") |> 
+  ggplot(aes(Karyotype, log2(Value), color = Karyotype)) +
+  geom_boxplot()
+#
+```
+
+### Principal Component Analysis
+
+We will use PCA to plot the data and explore sample information. The examples used here is taken from Statquest. Please refer to the [PCA video](https://www.youtube.com/watch?v=FgakZw6K1QQ).
+
+Here is a [useful post](https://setosa.io/ev/principal-component-analysis/) about PCA and how to think about the relationship of the components to variation.
+
+We will also be using this image to illustrate the regression line fit ![regression fit](https://miro.medium.com/v2/resize:fit:1400/1*XGaA7KWUlhWZLIezYEBIHA.gif)
+
+```{r, message=F}
+
+#create a data.frame of individuals by cytokines
+cytokines_df <- as.data.frame(pivot_wider(htp_meta_cytokines_data, names_from = "Analyte", values_from = "Value", id_cols = "LabID"))
+row.names(cytokines_df) <- cytokines_df$LabID
+cytokines_df <- log2(cytokines_df[,-1])
+
+# extract the annotations for each of the samples
+pca_annos <- as.data.frame(htp_meta_data %>% filter(LabID %in% row.names(cytokines_df)))
+row.names(pca_annos) <- pca_annos$LabID
+pca_annos <- pca_annos[row.names(cytokines_df),]
+
+# create a dataframe that will be used for plots that contains the cytokine and patient information.
+cytokines_df_annos <- cbind(cytokines_df, pca_annos)
+
+# Sanity check plots and basic plotting functions
+# 1D
+ids <- pca_annos$LabID[grep("T21", pca_annos$Karyotype)]
+plot(cytokines_df[ids,]$`IFN-gamma`, rep(0,length(cytokines_df[ids,]$`IFN-gamma`)), pch=20, ylab="", xlab="IFN-gamma expression", cex=1, col="lightseagreen")
+ids <- pca_annos$LabID[grep("Control", pca_annos$Karyotype)]
+points(cytokines_df[ids,]$`IFN-gamma`, rep(0.5,length(cytokines_df[ids,]$`IFN-gamma`)), pch=20, col="salmon", cex=1)
+legend(5, 1,  fill=c("lightseagreen", "salmon"), legend=c("T21", "Control"))
+
+ggplot(cytokines_df_annos, aes(x=Karyotype, y=`IFN-gamma`, fill=Karyotype)) + geom_boxplot() + geom_jitter() + theme_bw()
+
+# 2D
+ggplot(cytokines_df_annos, aes(x=`IFN-gamma`, y=`TNF-alpha`, color=Karyotype)) + geom_point()  + theme_bw()
+
+# lets look at a simplified example
+Cytokine1 <- c(10,11,8,3,1,3)
+Cytokine2 <- c(5,4,5,3,3,1)
+plot(Cytokine1, Cytokine2, pch =19)
+
+# find the mean of Cytokine1 and Cytokine2
+plot(Cytokine1, Cytokine2, pch =19)
+points(mean(Cytokine1), mean(Cytokine2), col="purple", pch=19, cex=3)  
+
+# center the data and plot
+Cytokine1 = Cytokine1 - mean(Cytokine1)
+Cytokine2 = Cytokine2 - mean(Cytokine2)
+plot(Cytokine1, Cytokine2, pch =19)
+segments(0,-10,0,20, col="grey", lty=2)
+segments(-10,0,20,0, col="grey", lty=2)
+
+# add a regression line
+plot(Cytokine1, Cytokine2, pch =19)
+segments(0,-10,0,20, col="grey", lty=2)
+segments(-10,0,20,0, col="grey", lty=2)
+abline(lm(Cytokine2~Cytokine1))
+segments(0,0,4,0, col="red", lwd=2)
+segments(4,1,4,0, col="red", lwd=2)
+
+
+# back to the HTP data
+# find the mean of the X and Y directions
+ggplot(cytokines_df_annos, aes(x=`IFN-gamma`, y=`TNF-alpha`)) + geom_point()  + theme_bw() +
+   geom_point(aes(x=mean(cytokines_df_annos$`IFN-gamma`),y=mean(cytokines_df_annos$`TNF-alpha`)), colour="purple", size=5)
+
+# center the data and plot
+cytokines_df_annos$`IFN-gamma-standard` <- cytokines_df_annos$`IFN-gamma` - mean(cytokines_df_annos$`IFN-gamma`)
+cytokines_df_annos$`TNF-alpha-standard` <- cytokines_df_annos$`TNF-alpha` - mean(cytokines_df_annos$`TNF-alpha`)
+ggplot(cytokines_df_annos, aes(x=`IFN-gamma-standard`, y=`TNF-alpha-standard`)) + geom_point()  + theme_bw()
+
+# add a regression line
+ggplot(cytokines_df_annos, aes(x=`IFN-gamma-standard`, y=`TNF-alpha-standard`)) + geom_point()  + theme_bw() + geom_smooth(method='lm',se=F) + geom_point(aes(x=0,y=0), colour="red")
+
+# note in the prcomp implementation of PCA, 
+# x = PCs
+# rotation = loadings
+# sdev^2 = eigenvalues
+
+# PCA with HTP Cytokine data
+pca <- prcomp(na.omit(cytokines_df), scale=T)
+
+autoplot(pca, data=cytokines_df_annos, col='Karyotype')
+autoplot(pca, data=cytokines_df_annos, col='Sex')
+
+# remove outlier samples
+hist(pca$x[,1], main ="PC1")
+sort(pca$x[,1])
+row.names(cytokines_df)[pca$x[,1] < -10]
+cytokines_df <- cytokines_df[pca$x[,1] > -10,]
+cytokines_df_annos <- cytokines_df_annos[pca$x[,1] > -10,]
+dim(cytokines_df)
+dim(cytokines_df_annos)
+pca <- prcomp(na.omit(cytokines_df), scale=T)
+autoplot(pca, data=cytokines_df_annos, col='Karyotype')
+autoplot(pca, data=cytokines_df_annos, col='Sex')
+autoplot(pca, data=cytokines_df_annos, col='Age')
+
+ # scree plot
+var_explained = cbind(PC=seq(1, length(pca$sdev)), var=100*(pca$sdev^2 / sum(pca$sdev^2)))
+ggplot(var_explained, aes(x=PC, y=var)) + geom_line() + xlab("Principal Component") + theme_bw() +
+  ylab("Variance Explained (%)") + ggtitle("Scree Plot") + xlim(1,20)
+```
+
+### UMAP: Uniform Manifold Approximation and Projection
+
+We will use UMAP to plot the data and explore sample information. Bookmark the [Statquest video](https://www.youtube.com/watch?v=eN0wFzBA4Sc) on UMAP to review again and again in the future.
+
+Here is a [useful post](https://pair-code.github.io/understanding-umap/) that helps to undetstand the relationship between the parameters and visualize in UMAP.
+
+```{r, message=F}
+
+# UMAP with HTP Cytokine data
+u <- umap(cytokines_df)
+cytokines_df_annos_umap <- cbind(u$layout, cytokines_df_annos)
+colnames(cytokines_df_annos_umap)[1] <- "UMAP1"
+colnames(cytokines_df_annos_umap)[2] <- "UMAP2"
+
+ggplot(cytokines_df_annos_umap, aes(x=UMAP1, y=UMAP2, color=Karyotype)) + geom_point()  + theme_bw()   
+
+# to explore the parameters in UMAP, you can see the default values and adjust in the function
+umap.defaults
+
+u <- umap(cytokines_df, n_neighbors=5)
+cytokines_df_annos_umap <- cbind(u$layout, cytokines_df_annos)
+colnames(cytokines_df_annos_umap)[1] <- "UMAP1"
+colnames(cytokines_df_annos_umap)[2] <- "UMAP2"
+
+ggplot(cytokines_df_annos_umap, aes(x=UMAP1, y=UMAP2, color=Karyotype)) + geom_point()  + theme_bw()   
+
+
+```
+
+### t-distributed stochastic neighbor embedding
+
+We will use tSNE to plot the data and explore sample information
+
+```{r, message=F}
+# tSNE is stochastic so it will produce different results based on the random seed. To get the same results, you will need to fix the seed
+set.seed(48673)
+
+# theta is parameter that balances speed and accuracy. theta=0 is the exact tSNE calculation
+# perplexity is the value that balances density of the cluster size
+
+# tSNE with HTP Cytokine data
+tsne <- Rtsne(cytokines_df, pca=F, verbose=T, perplexity=30, theta=0)
+cytokines_df_annos_tsne <- cbind(tsne$Y, cytokines_df_annos)
+colnames(cytokines_df_annos_tsne)[1] <- "tsne1"
+colnames(cytokines_df_annos_tsne)[2] <- "tsne2"
+
+ggplot(cytokines_df_annos_tsne, aes(x=tsne1, y=tsne2, color=Karyotype)) + geom_point()  + theme_bw()   
+ggplot(cytokines_df_annos_tsne, aes(x=tsne1, y=tsne2, color=Sex)) + geom_point()  + theme_bw()   
+
+# playing with perplexity
+tsne <- Rtsne(cytokines_df, pca=F, verbose=T, perplexity=5, theta=0)
+cytokines_df_annos_tsne <- cbind(tsne$Y, cytokines_df_annos)
+colnames(cytokines_df_annos_tsne)[1] <- "tsne1"
+colnames(cytokines_df_annos_tsne)[2] <- "tsne2"
+ggplot(cytokines_df_annos_tsne, aes(x=tsne1, y=tsne2, color=Karyotype)) + geom_point()  + theme_bw()   
+
+tsne <- Rtsne(cytokines_df, pca=F, verbose=T, perplexity=100, theta=0)
+cytokines_df_annos_tsne <- cbind(tsne$Y, cytokines_df_annos)
+colnames(cytokines_df_annos_tsne)[1] <- "tsne1"
+colnames(cytokines_df_annos_tsne)[2] <- "tsne2"
+ggplot(cytokines_df_annos_tsne, aes(x=tsne1, y=tsne2, color=Karyotype)) + geom_point()  + theme_bw()   
+```
+
+### Session Information
+
+```{r, message = F}
+sessionInfo()
+```
