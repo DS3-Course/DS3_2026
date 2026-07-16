@@ -122,13 +122,19 @@ Applications of simple machine learning methods to predict outcomes leveraging H
 Predictive Models: [README](https://github.com/DS3-Course/DS3_2026/blob/main/PredictiveModels/README.md)
 
 ---
-<!-- 
+
 ## Day 9: Analysis of INCLUDE data with R using Cavatica
 Instructors: Matthew Galbraith and Velsera   
+<!-- 
 [Slides]()  
+ -->
 A guide to locating data in the INCLUDE Data Hub and transfering to the Cavatica platform for analysis.  
 Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program)  
-HTP linear regression Cavatica: [README]()
+HTP linear regression Cavatica: [README](https://github.com/DS3-Course/HTP_linear_regression_Cavatica/README.md)
+
+---
+<!-- 
+COMMENTS HERE
  -->
 
 
