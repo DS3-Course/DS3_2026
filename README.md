@@ -130,7 +130,7 @@ Instructors: Matthew Galbraith and Velsera
  -->
 A guide to locating data in the INCLUDE Data Hub and transfering to the Cavatica platform for analysis.  
 Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program)  
-HTP linear regression Cavatica: [README](https://github.com/DS3-Course/HTP_linear_regression_Cavatica/README.md)
+HTP linear regression Cavatica: [README](https://github.com/DS3-Course/HTP_linear_regression_Cavatica/blob/main/README.md)
 
 ---
 <!-- 
