@@ -102,7 +102,7 @@ HTP linear regression example: [README](https://github.com/DS3-Course/DS3_2026/b
 ## Day 6: Advanced Data Visualization and Analysis in R
 Instructor: Matthew Galbraith  
 Examples and discussion of effective andvanced data visualizations using ggplot in R.   
-[Slides]()  
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Day6_INCLUDE_DCC_DS3_2026_Galbraith.pdf)  
 HTP linear regression example: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_linear_regression_example/README.md)  
 HTP DESeq2 analysis: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_DESeq2_analysis/README.md)  
 HTP single-cell dataviz mass cytometry: [README](https://github.com/DS3-Course/DS3_2026/blob/main/HTP_single_cell_dataviz_mass_cytometry/README.md)  
