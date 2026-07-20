@@ -125,9 +125,7 @@ Predictive Models: [README](https://github.com/DS3-Course/DS3_2026/blob/main/Pre
 
 ## Day 9: Analysis of INCLUDE data with R using Cavatica
 Instructors: Matthew Galbraith and Velsera   
-<!-- 
-[Slides]()  
- -->
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Day9_CAVATICA_DS3_2026.pdf)  
 A guide to locating data in the INCLUDE Data Hub and transfering to the Cavatica platform for analysis.  
 Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud-credits-pilot-program)  
 HTP linear regression Cavatica: [README](https://github.com/DS3-Course/HTP_linear_regression_Cavatica/blob/main/README.md)
