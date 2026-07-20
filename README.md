@@ -131,6 +131,13 @@ Apply for [INCLUDE Cloud Credits](https://help.includedcc.org/docs/include-cloud
 HTP linear regression Cavatica: [README](https://github.com/DS3-Course/HTP_linear_regression_Cavatica/blob/main/README.md)
 
 ---
+
+## Day 10: Responsible Conduct of Research and AI in Research
+Instructors: Mary Ellen and Matthew Galbraith   
+[Slides](https://github.com/DS3-Course/DS3_2026/blob/main/slides/Day10_RCR_Case_Studies_DS3_2026_Galbraith.pdf)  
+Discussion of responsible conduct of research concepts and case studies, and the use of AI in research.  
+
+---
 <!-- 
 COMMENTS HERE
  -->
